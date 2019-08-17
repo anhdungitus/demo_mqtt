@@ -1,7 +1,10 @@
-﻿using System;
-using MQTTnet;
+﻿using MQTTnet;
 using MQTTnet.Protocol;
 using MQTTnet.Server;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Broker
@@ -9,6 +12,7 @@ namespace Broker
     internal class Program
     {
         private static IMqttServer _mqttServer;
+
         private static async Task Main(string[] args)
         {
             // Setup client validator.
@@ -19,29 +23,26 @@ namespace Broker
                 {
                     if (c.ClientId.Length < 10)
                     {
-                        c.ReturnCode = MqttConnectReturnCode.ConnectionRefusedIdentifierRejected;
+                        c.ReasonCode = MqttConnectReasonCode.ClientIdentifierNotValid;
                         return;
                     }
 
                     if (c.Username != "mySecretUser")
                     {
-                        c.ReturnCode = MqttConnectReturnCode.ConnectionRefusedBadUsernameOrPassword;
+                        c.ReasonCode = MqttConnectReasonCode.BadUserNameOrPassword;
                         return;
                     }
 
                     if (c.Password != "mySecretPassword")
                     {
-                        c.ReturnCode = MqttConnectReturnCode.ConnectionRefusedBadUsernameOrPassword;
+                        c.ReasonCode = MqttConnectReasonCode.BadUserNameOrPassword;
                         return;
                     }
 
-                    c.ReturnCode = MqttConnectReturnCode.ConnectionAccepted;
-                });
-
-            var options = new MqttServerOptions();
-            options.DefaultEndpointOptions.Port = 1884;
-            options.DefaultEndpointOptions.ConnectionBacklog = 100;
-            options.DefaultEndpointOptions.BoundInterNetworkAddress = System.Net.IPAddress.Parse("127.0.0.1");
+                    c.ReasonCode = MqttConnectReasonCode.Success;
+                })
+                .WithStorage(new RetainedMessageHandler())
+                .WithPersistentSessions();
 
             _mqttServer = new MqttFactory().CreateMqttServer();
             await _mqttServer.StartAsync(optionsBuilder.Build());
@@ -49,6 +50,35 @@ namespace Broker
             Console.WriteLine("Press any key to exit.");
             Console.ReadLine();
             await _mqttServer.StopAsync();
+        }
+
+        // The implementation of the storage:
+        // This code uses the JSON library "Newtonsoft.Json".
+        public class RetainedMessageHandler : IMqttServerStorage
+        {
+            private const string Filename = "C:\\MQTT\\RetainedMessages.json";
+
+            public Task SaveRetainedMessagesAsync(IList<MqttApplicationMessage> messages)
+            {
+                File.WriteAllText(Filename, JsonConvert.SerializeObject(messages));
+                return Task.FromResult(0);
+            }
+
+            public Task<IList<MqttApplicationMessage>> LoadRetainedMessagesAsync()
+            {
+                IList<MqttApplicationMessage> retainedMessages;
+                if (File.Exists(Filename))
+                {
+                    var json = File.ReadAllText(Filename);
+                    retainedMessages = JsonConvert.DeserializeObject<List<MqttApplicationMessage>>(json);
+                }
+                else
+                {
+                    retainedMessages = new List<MqttApplicationMessage>();
+                }
+
+                return Task.FromResult(retainedMessages);
+            }
         }
     }
 }

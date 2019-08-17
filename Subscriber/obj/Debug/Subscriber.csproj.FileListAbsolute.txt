@@ -7,3 +7,4 @@ C:\Users\dung\source\repos\WebHubDemo\Subscriber\obj\Debug\Subscriber.csproj.Cor
 C:\Users\dung\source\repos\WebHubDemo\Subscriber\obj\Debug\Subscriber.csproj.CopyComplete
 C:\Users\dung\source\repos\WebHubDemo\Subscriber\obj\Debug\Subscriber.exe
 C:\Users\dung\source\repos\WebHubDemo\Subscriber\obj\Debug\Subscriber.pdb
+C:\Users\dung\source\repos\WebHubDemo\Subscriber\obj\Debug\Subscriber.csprojAssemblyReference.cache

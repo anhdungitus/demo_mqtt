@@ -3,8 +3,8 @@ C:\Users\dung\source\repos\WebHubDemo\Publisher\bin\Debug\Publisher.exe
 C:\Users\dung\source\repos\WebHubDemo\Publisher\bin\Debug\Publisher.pdb
 C:\Users\dung\source\repos\WebHubDemo\Publisher\bin\Debug\MQTTnet.dll
 C:\Users\dung\source\repos\WebHubDemo\Publisher\bin\Debug\MQTTnet.Extensions.ManagedClient.dll
-C:\Users\dung\source\repos\WebHubDemo\Publisher\obj\Debug\Publisher.csprojAssemblyReference.cache
 C:\Users\dung\source\repos\WebHubDemo\Publisher\obj\Debug\Publisher.csproj.CoreCompileInputs.cache
 C:\Users\dung\source\repos\WebHubDemo\Publisher\obj\Debug\Publisher.csproj.CopyComplete
 C:\Users\dung\source\repos\WebHubDemo\Publisher\obj\Debug\Publisher.exe
 C:\Users\dung\source\repos\WebHubDemo\Publisher\obj\Debug\Publisher.pdb
+C:\Users\dung\source\repos\WebHubDemo\Publisher\obj\Debug\Publisher.csprojAssemblyReference.cache

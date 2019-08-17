@@ -1,0 +1,11 @@
+C:\Users\dung\Downloads\projects\azure hub\azure-iot-samples-csharp-master\iot-hub\Quickstarts\back-end-application\bin\Debug\netcoreapp2.1\back-end-application.deps.json
+C:\Users\dung\Downloads\projects\azure hub\azure-iot-samples-csharp-master\iot-hub\Quickstarts\back-end-application\bin\Debug\netcoreapp2.1\back-end-application.runtimeconfig.json
+C:\Users\dung\Downloads\projects\azure hub\azure-iot-samples-csharp-master\iot-hub\Quickstarts\back-end-application\bin\Debug\netcoreapp2.1\back-end-application.runtimeconfig.dev.json
+C:\Users\dung\Downloads\projects\azure hub\azure-iot-samples-csharp-master\iot-hub\Quickstarts\back-end-application\bin\Debug\netcoreapp2.1\back-end-application.dll
+C:\Users\dung\Downloads\projects\azure hub\azure-iot-samples-csharp-master\iot-hub\Quickstarts\back-end-application\bin\Debug\netcoreapp2.1\back-end-application.pdb
+C:\Users\dung\Downloads\projects\azure hub\azure-iot-samples-csharp-master\iot-hub\Quickstarts\back-end-application\obj\Debug\netcoreapp2.1\back-end-application.csprojAssemblyReference.cache
+C:\Users\dung\Downloads\projects\azure hub\azure-iot-samples-csharp-master\iot-hub\Quickstarts\back-end-application\obj\Debug\netcoreapp2.1\back-end-application.csproj.CoreCompileInputs.cache
+C:\Users\dung\Downloads\projects\azure hub\azure-iot-samples-csharp-master\iot-hub\Quickstarts\back-end-application\obj\Debug\netcoreapp2.1\back-end-application.AssemblyInfoInputs.cache
+C:\Users\dung\Downloads\projects\azure hub\azure-iot-samples-csharp-master\iot-hub\Quickstarts\back-end-application\obj\Debug\netcoreapp2.1\back-end-application.AssemblyInfo.cs
+C:\Users\dung\Downloads\projects\azure hub\azure-iot-samples-csharp-master\iot-hub\Quickstarts\back-end-application\obj\Debug\netcoreapp2.1\back-end-application.dll
+C:\Users\dung\Downloads\projects\azure hub\azure-iot-samples-csharp-master\iot-hub\Quickstarts\back-end-application\obj\Debug\netcoreapp2.1\back-end-application.pdb
