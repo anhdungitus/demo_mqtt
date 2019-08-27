@@ -2,7 +2,6 @@ C:\Users\dung\source\repos\WebHubDemo\Broker\bin\Debug\Broker.exe.config
 C:\Users\dung\source\repos\WebHubDemo\Broker\bin\Debug\Broker.exe
 C:\Users\dung\source\repos\WebHubDemo\Broker\bin\Debug\Broker.pdb
 C:\Users\dung\source\repos\WebHubDemo\Broker\bin\Debug\MQTTnet.dll
-C:\Users\dung\source\repos\WebHubDemo\Broker\obj\Debug\Broker.csproj.CoreCompileInputs.cache
 C:\Users\dung\source\repos\WebHubDemo\Broker\obj\Debug\Broker.csproj.CopyComplete
 C:\Users\dung\source\repos\WebHubDemo\Broker\obj\Debug\Broker.exe
 C:\Users\dung\source\repos\WebHubDemo\Broker\obj\Debug\Broker.pdb

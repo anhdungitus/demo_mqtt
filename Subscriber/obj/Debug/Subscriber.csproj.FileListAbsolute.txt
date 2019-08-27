@@ -3,8 +3,9 @@ C:\Users\dung\source\repos\WebHubDemo\Subscriber\bin\Debug\Subscriber.exe
 C:\Users\dung\source\repos\WebHubDemo\Subscriber\bin\Debug\Subscriber.pdb
 C:\Users\dung\source\repos\WebHubDemo\Subscriber\bin\Debug\MQTTnet.dll
 C:\Users\dung\source\repos\WebHubDemo\Subscriber\bin\Debug\MQTTnet.Extensions.ManagedClient.dll
-C:\Users\dung\source\repos\WebHubDemo\Subscriber\obj\Debug\Subscriber.csproj.CoreCompileInputs.cache
 C:\Users\dung\source\repos\WebHubDemo\Subscriber\obj\Debug\Subscriber.csproj.CopyComplete
 C:\Users\dung\source\repos\WebHubDemo\Subscriber\obj\Debug\Subscriber.exe
 C:\Users\dung\source\repos\WebHubDemo\Subscriber\obj\Debug\Subscriber.pdb
 C:\Users\dung\source\repos\WebHubDemo\Subscriber\obj\Debug\Subscriber.csprojAssemblyReference.cache
+C:\Users\dung\source\repos\WebHubDemo\Subscriber\bin\Debug\Newtonsoft.Json.dll
+C:\Users\dung\source\repos\WebHubDemo\Subscriber\bin\Debug\Newtonsoft.Json.xml
