@@ -32,7 +32,7 @@ namespace Subscriber
         private static IMqttClient _subscriberClient;
         public const string DeviceChangeStatusToPic = "wilink/device-status";
 
-        private static async Task Main(string[] args)
+        private static void Main(string[] args)
         {
             var options = new MqttClientOptionsBuilder()
                     .WithClientId("clientId-pXiamU1MOP2")
@@ -57,11 +57,11 @@ namespace Subscriber
                 }
             };
 
-            await _subscriberClient.ConnectAsync(options);
-            await _subscriberClient.SubscribeAsync(
+            var mqttClientAuthenticateResult = _subscriberClient.ConnectAsync(options).Result;
+            var mqttClientSubscribeResult = _subscriberClient.SubscribeAsync(
                 new TopicFilterBuilder().WithTopic("testtopic/1").Build(),
                 new TopicFilterBuilder().WithTopic("testtopic/2").Build(),
-                new TopicFilterBuilder().WithTopic(DeviceChangeStatusToPic).Build());
+                new TopicFilterBuilder().WithTopic(DeviceChangeStatusToPic).Build()).Result;
             Console.WriteLine("PRESS ENTER TO FINISH");
             var result = Console.ReadLine();
         }
@@ -76,7 +76,7 @@ namespace Subscriber
             Console.WriteLine("ApplicationMessageSkippedHandlerMethod");
         }
 
-        private static void OnMqttClientApplicationMessageReceived(MqttApplicationMessageReceivedEventArgs obj)
+        private static Task OnMqttClientApplicationMessageReceived(MqttApplicationMessageReceivedEventArgs obj)
         {
             if (obj.ApplicationMessage.Topic == DeviceChangeStatusToPic)
             {
@@ -90,7 +90,8 @@ namespace Subscriber
                 Console.WriteLine($"Received message {obj.ApplicationMessage?.ConvertPayloadToString()} from " +
                                   $"client {obj.ClientId}");
             }
-            
+
+            return Task.CompletedTask;
         }
 
         private static void OnMqttClientConnectingFailed(ManagedProcessFailedEventArgs obj)
@@ -98,14 +99,16 @@ namespace Subscriber
             Console.WriteLine("OnMqttClientConnectingFailed");
         }
 
-        private static void OnMqttClientDisconnected(MqttClientDisconnectedEventArgs obj)
+        private static Task OnMqttClientDisconnected(MqttClientDisconnectedEventArgs obj)
         {
             Console.WriteLine("OnMqttClientDisconnected");
+            return Task.CompletedTask;
         }
 
-        private static void OnMqttClientConnected(MqttClientConnectedEventArgs obj)
+        private static Task OnMqttClientConnected(MqttClientConnectedEventArgs obj)
         {
             Console.WriteLine("OnMqttClientConnected");
+            return Task.CompletedTask;
         }
     }
 }

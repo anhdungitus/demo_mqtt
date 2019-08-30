@@ -15,7 +15,7 @@ namespace Broker
     {
         private static IMqttServer _mqttServer;
 
-        private static async Task Main(string[] args)
+        private static void Main(string[] args)
         {
             // Setup client validator.
             var optionsBuilder = new MqttServerOptionsBuilder()
@@ -59,12 +59,12 @@ namespace Broker
                     
                 });
 
-            await _mqttServer.StartAsync(optionsBuilder.Build());
+             _mqttServer.StartAsync(optionsBuilder.Build());
 
 
             Console.WriteLine("Press any key to exit.");
             Console.ReadLine();
-            await _mqttServer.StopAsync();
+             _mqttServer.StopAsync();
         }
 
         private class  MqttServerApplicationMessageReceived : IMqttApplicationMessageReceivedHandler

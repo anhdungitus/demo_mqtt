@@ -27,7 +27,7 @@ namespace Publisher
         private static IMqttClient _publisherClient;
         public const string DeviceChangeStatusToPic = "wilink/device-status";
 
-        private static async Task Main(string[] args)
+        private static void Main(string[] args)
         {
             var turnOffPayLoad = new StatusPayload
             {
@@ -59,7 +59,7 @@ namespace Publisher
             _publisherClient.ConnectedHandler = new MqttClientConnectedHandlerDelegate(ConnectedHandler);
             //_publisherClient.UseDisconnectedHandler(Handler)
             //_publisherClient.DisconnectedHandler = new MqttClientDisconnectedHandlerDelegate(DisconnectedHandler);
-            await _publisherClient.ConnectAsync(options);
+            var mqttClientAuthenticateResult = _publisherClient.ConnectAsync(options).Result;
             //var turnOnPayloadJson = JsonConvert.SerializeObject(new StatusPayload()
             //{
             //    ApplicationId = "wilink",
@@ -92,13 +92,13 @@ namespace Publisher
                             .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce)
                             .WithRetainFlag()
                             .Build();
-                        await _publisherClient.PublishAsync(connectMessage).ContinueWith(s => _publisherClient.DisconnectAsync());
+                         _publisherClient.PublishAsync(connectMessage).ContinueWith(s => _publisherClient.DisconnectAsync());
                     }
                         break;
                     case "1":
                     {
                         if (!_publisherClient.IsConnected)
-                            await _publisherClient.ConnectAsync(options);
+                             _publisherClient.ConnectAsync(options);
                         break;
                     }
                     default:
@@ -111,8 +111,8 @@ namespace Publisher
                                 .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce)
                                 .WithRetainFlag(false)
                                 .Build();
-                            var result = await _publisherClient.PublishAsync(topic2Message);
-                            if (result.ReasonCode == MqttClientPublishReasonCode.Success)
+                            var result = _publisherClient.PublishAsync(topic2Message);
+                            if (result.IsCompleted)
                             {
                                 Console.WriteLine("Publish success!");
                             }
