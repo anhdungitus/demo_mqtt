@@ -5,6 +5,9 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
+using System.Security.Authentication;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using MQTTnet.Client.Receiving;
 using MQTTnet.Packets;
@@ -17,10 +20,16 @@ namespace Broker
 
         private static async Task Main(string[] args)
         {
+            var currentPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? "";
+            var certificate = new X509Certificate2(Path.Combine(currentPath, "certificate.pfx"), "Nxtyentya1!", X509KeyStorageFlags.Exportable);
+
             // Setup client validator.
             var optionsBuilder = new MqttServerOptionsBuilder()
                 .WithConnectionBacklog(100)
-                .WithDefaultEndpointPort(8000)
+                .WithoutDefaultEndpoint()
+                .WithEncryptedEndpoint()
+                .WithEncryptionCertificate(certificate.Export(X509ContentType.Pfx))
+                .WithEncryptionSslProtocol(SslProtocols.Tls12)
                 .WithConnectionValidator(c =>
                 {
                     if (c.ClientId.Length < 10)
@@ -48,6 +57,7 @@ namespace Broker
                     };
                     c.ReasonString = "ssss";
                 })
+                
                 //.WithStorage(new RetainedMessageHandler())
                 .WithPersistentSessions();
 
@@ -58,8 +68,9 @@ namespace Broker
                 {
                     
                 });
+            var options = optionsBuilder.Build();
 
-            await _mqttServer.StartAsync(optionsBuilder.Build());
+            await _mqttServer.StartAsync(options);
 
 
             Console.WriteLine("Press any key to exit.");

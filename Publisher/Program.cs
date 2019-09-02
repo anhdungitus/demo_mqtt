@@ -1,15 +1,20 @@
 ﻿using MQTTnet;
-using MQTTnet.Client.Options;
-using System;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using MQTTnet.Client;
 using MQTTnet.Client.Connecting;
 using MQTTnet.Client.Disconnecting;
+using MQTTnet.Client.Options;
 using MQTTnet.Client.Publishing;
 using MQTTnet.Protocol;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net.Security;
+using System.Reflection;
+using System.Security.Authentication;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Publisher
 {
@@ -26,6 +31,7 @@ namespace Publisher
     {
         private static IMqttClient _publisherClient;
         public const string DeviceChangeStatusToPic = "wilink/device-status";
+        public const string ApprovedTopic = "wilink/approved";
 
         private static async Task Main(string[] args)
         {
@@ -46,9 +52,19 @@ namespace Publisher
                 Retain = true
             };
 
+            var currentPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? "";
             var options = new MqttClientOptionsBuilder()
                     .WithClientId("clientId-pXiamU1MOP33")
-                    .WithTcpServer("127.0.0.1", 8000)
+                    .WithTcpServer("127.0.0.1", 8883)
+                    .WithTls(parameters: new MqttClientOptionsBuilderTlsParameters()
+                    {
+                        UseTls = true, 
+                        AllowUntrustedCertificates = false, 
+                        IgnoreCertificateChainErrors = true,
+                        IgnoreCertificateRevocationErrors = true, 
+                        SslProtocol = SslProtocols.Tls12,
+                        CertificateValidationCallback = (X509Certificate x, X509Chain y, SslPolicyErrors z, IMqttClientOptions o) => true
+                    })
                     .WithCredentials("mySecretUser", "mySecretPassword")
                     .WithCleanSession()
                     .WithWillMessage(lastWillMessage)
@@ -79,53 +95,86 @@ namespace Publisher
 
             while (true)
             {
-                Console.WriteLine("Press 0 to exit, 1 to connect again, type message to publish.");
+                Console.WriteLine("Press 0 to exit, 1 to connect again, " +
+                                  "2 to send approved message, 3 change status topic, type message to publish.");
                 var command = Console.ReadLine();
 
                 switch (command)
                 {
                     case "0":
-                    {
-                        var connectMessage = new MqttApplicationMessageBuilder()
-                            .WithTopic(DeviceChangeStatusToPic)
-                            .WithPayload(turnOffPayloadJson)
-                            .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce)
-                            .WithRetainFlag()
-                            .Build();
-                        await _publisherClient.PublishAsync(connectMessage).ContinueWith(s => _publisherClient.DisconnectAsync());
-                    }
-                        break;
-                    case "1":
-                    {
-                        if (!_publisherClient.IsConnected)
-                            await _publisherClient.ConnectAsync(options);
-                        break;
-                    }
-                    default:
-                    {
-                        if (_publisherClient.IsConnected)
                         {
-                            var topic2Message = new MqttApplicationMessageBuilder()
-                                .WithTopic("testtopic/2")
-                                .WithPayload(command)
+                            var connectMessage = new MqttApplicationMessageBuilder()
+                                .WithTopic(DeviceChangeStatusToPic)
+                                .WithPayload(turnOffPayloadJson)
                                 .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce)
-                                .WithRetainFlag(false)
+                                .WithRetainFlag()
                                 .Build();
-                            var result = await _publisherClient.PublishAsync(topic2Message);
+                            await _publisherClient.PublishAsync(connectMessage).ContinueWith(s => _publisherClient.DisconnectAsync());
+                        }
+                        break;
+
+                    case "1":
+                        {
+                            if (!_publisherClient.IsConnected)
+                                await _publisherClient.ConnectAsync(options);
+                            break;
+                        }
+
+                    case "2":
+                        {
+                            var applicationMessage = new MqttApplicationMessageBuilder()
+                                .WithTopic(ApprovedTopic)
+                                .WithPayload("123223456789")
+                                .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce)
+                                .WithRetainFlag()
+                                .Build();
+                            var result = await _publisherClient.PublishAsync(applicationMessage);
                             if (result.ReasonCode == MqttClientPublishReasonCode.Success)
                             {
                                 Console.WriteLine("Publish success!");
                             }
+                            break;
+                        }
+
+                    case "3":
+                    {
+                        var applicationMessage = new MqttApplicationMessageBuilder()
+                            .WithTopic(DeviceChangeStatusToPic)
+                            .WithPayload("123223456789")
+                            .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce)
+                            .WithRetainFlag()
+                            .Build();
+                        var result = await _publisherClient.PublishAsync(applicationMessage);
+                        if (result.ReasonCode == MqttClientPublishReasonCode.Success)
+                        {
+                            Console.WriteLine("Publish success!");
                         }
                         break;
-                    }
+                        }
+                    default:
+                        {
+                            if (_publisherClient.IsConnected)
+                            {
+                                var topic2Message = new MqttApplicationMessageBuilder()
+                                    .WithTopic("testtopic/2")
+                                    .WithPayload(command)
+                                    .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce)
+                                    .WithRetainFlag(false)
+                                    .Build();
+                                var result = await _publisherClient.PublishAsync(topic2Message);
+                                if (result.ReasonCode == MqttClientPublishReasonCode.Success)
+                                {
+                                    Console.WriteLine("Publish success!");
+                                }
+                            }
+                            break;
+                        }
                 }
             }
         }
 
         private static async Task DisconnectedHandler(MqttClientDisconnectedEventArgs obj)
         {
-            
         }
 
         private static async Task ConnectedHandler(MqttClientConnectedEventArgs obj)

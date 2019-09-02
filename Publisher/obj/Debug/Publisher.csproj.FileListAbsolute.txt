@@ -9,3 +9,4 @@ C:\Users\dung\source\repos\WebHubDemo\Publisher\obj\Debug\Publisher.pdb
 C:\Users\dung\source\repos\WebHubDemo\Publisher\obj\Debug\Publisher.csprojAssemblyReference.cache
 C:\Users\dung\source\repos\WebHubDemo\Publisher\bin\Debug\Newtonsoft.Json.dll
 C:\Users\dung\source\repos\WebHubDemo\Publisher\bin\Debug\Newtonsoft.Json.xml
+C:\Users\dung\source\repos\WebHubDemo\Publisher\bin\Debug\certificate.pfx
