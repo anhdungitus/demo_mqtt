@@ -1,6 +1,10 @@
 ﻿using MQTTnet;
 using MQTTnet.Client.Options;
 using System;
+using System.Net.Security;
+using System.Net.WebSockets;
+using System.Security.Authentication;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -48,7 +52,17 @@ namespace Publisher
 
             var options = new MqttClientOptionsBuilder()
                     .WithClientId("clientId-pXiamU1MOP33")
-                    .WithTcpServer("127.0.0.1", 8000)
+                    //.WithTcpServer("127.0.0.1", 8000)
+                    .WithWebSocketServer("wss://wilinkhub//mqtt")
+                    .WithTls(parameters: new MqttClientOptionsBuilderTlsParameters()
+                    {
+                        UseTls = true,
+                        AllowUntrustedCertificates = false,
+                        IgnoreCertificateChainErrors = true,
+                        IgnoreCertificateRevocationErrors = true,
+                        SslProtocol = SslProtocols.Tls12,
+                        CertificateValidationCallback = (x, y, z, o) => true
+                    })
                     .WithCredentials("mySecretUser", "mySecretPassword")
                     .WithCleanSession()
                     .WithWillMessage(lastWillMessage)
@@ -57,25 +71,7 @@ namespace Publisher
 
             _publisherClient = new MqttFactory().CreateMqttClient();
             _publisherClient.ConnectedHandler = new MqttClientConnectedHandlerDelegate(ConnectedHandler);
-            //_publisherClient.UseDisconnectedHandler(Handler)
-            //_publisherClient.DisconnectedHandler = new MqttClientDisconnectedHandlerDelegate(DisconnectedHandler);
-            var mqttClientAuthenticateResult = _publisherClient.ConnectAsync(options).Result;
-            //var turnOnPayloadJson = JsonConvert.SerializeObject(new StatusPayload()
-            //{
-            //    ApplicationId = "wilink",
-            //    EntityId = Guid.NewGuid(),
-            //    EntityType = "AGE",
-            //    IdentifyCode = "ec3cc6d0-829a-11e9-bc42-526af7764f64",
-            //    Status = "ON"
-            //});
-
-            //var connectMessage = new MqttApplicationMessageBuilder()
-            //    .WithTopic(DeviceChangeStatusToPic)
-            //    .WithPayload(turnOnPayloadJson)
-            //    .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce)
-            //    .WithRetainFlag()
-            //    .Build();
-            //await _publisherClient.PublishAsync(connectMessage);
+            _publisherClient.ConnectAsync(options);
 
             while (true)
             {
@@ -85,43 +81,57 @@ namespace Publisher
                 switch (command)
                 {
                     case "0":
-                    {
-                        var connectMessage = new MqttApplicationMessageBuilder()
-                            .WithTopic(DeviceChangeStatusToPic)
-                            .WithPayload(turnOffPayloadJson)
-                            .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce)
-                            .WithRetainFlag()
-                            .Build();
-                         _publisherClient.PublishAsync(connectMessage).ContinueWith(s => _publisherClient.DisconnectAsync());
-                    }
-                        break;
-                    case "1":
-                    {
-                        if (!_publisherClient.IsConnected)
-                             _publisherClient.ConnectAsync(options);
-                        break;
-                    }
-                    default:
-                    {
-                        if (_publisherClient.IsConnected)
                         {
-                            var topic2Message = new MqttApplicationMessageBuilder()
-                                .WithTopic("testtopic/2")
-                                .WithPayload(command)
+                            var connectMessage = new MqttApplicationMessageBuilder()
+                                .WithTopic(DeviceChangeStatusToPic)
+                                .WithPayload(turnOffPayloadJson)
                                 .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce)
-                                .WithRetainFlag(false)
+                                .WithRetainFlag()
                                 .Build();
-                            var result = _publisherClient.PublishAsync(topic2Message);
-                            if (result.IsCompleted)
-                            {
-                                Console.WriteLine("Publish success!");
-                            }
+                            _publisherClient.PublishAsync(connectMessage).ContinueWith(s => _publisherClient.DisconnectAsync());
                         }
                         break;
-                    }
+                    case "1":
+                        {
+                            if (!_publisherClient.IsConnected)
+                                _publisherClient.ConnectAsync(options);
+                            break;
+                        }
+                    default:
+                        {
+                            if (_publisherClient.IsConnected)
+                            {
+                                var topic2Message = new MqttApplicationMessageBuilder()
+                                    .WithTopic("testtopic/2")
+                                    .WithPayload(command)
+                                    .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce)
+                                    .WithRetainFlag(false)
+                                    .Build();
+                                var result = _publisherClient.PublishAsync(topic2Message);
+                                if (result.IsCompleted)
+                                {
+                                    Console.WriteLine("Publish success!");
+                                }
+                            }
+                            break;
+                        }
                 }
             }
         }
+
+        //private static void Main(string[] args)
+        //{
+        //    using (var ws = new WebSocket("https://localhost:44332/mqtt"))
+        //    {
+
+        //        //ws.OnMessage += (sender, e) =>
+        //        //    Console.WriteLine("Laputa says: " + e.Data);
+
+        //        //ws.Connect();
+        //        //ws.Send("BALUS");
+        //        Console.ReadKey(true);
+        //    }
+        //}
 
         private static async Task DisconnectedHandler(MqttClientDisconnectedEventArgs obj)
         {

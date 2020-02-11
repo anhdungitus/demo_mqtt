@@ -30,3 +30,24 @@ C:\Users\nguyend6\Desktop\mqtt\demo_mqtt\Publisher\bin\Debug\System.Security.Cry
 C:\Users\nguyend6\Desktop\mqtt\demo_mqtt\Publisher\bin\Debug\System.Security.Cryptography.Primitives.dll
 C:\Users\nguyend6\Desktop\mqtt\demo_mqtt\Publisher\bin\Debug\System.Security.Cryptography.X509Certificates.dll
 C:\Users\nguyend6\Desktop\mqtt\demo_mqtt\Publisher\obj\Debug\Publisher.exe
+C:\Workspaces\Personal stuff\demo_mqtt\Publisher\bin\Debug\Publisher.exe.config
+C:\Workspaces\Personal stuff\demo_mqtt\Publisher\bin\Debug\Publisher.exe
+C:\Workspaces\Personal stuff\demo_mqtt\Publisher\bin\Debug\Publisher.pdb
+C:\Workspaces\Personal stuff\demo_mqtt\Publisher\bin\Debug\MQTTnet.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Publisher\bin\Debug\MQTTnet.Extensions.ManagedClient.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Publisher\bin\Debug\Newtonsoft.Json.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Publisher\bin\Debug\System.IO.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Publisher\bin\Debug\System.Net.Security.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Publisher\bin\Debug\System.Net.WebSockets.Client.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Publisher\bin\Debug\System.Net.WebSockets.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Publisher\bin\Debug\System.Runtime.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Publisher\bin\Debug\System.Security.Cryptography.Algorithms.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Publisher\bin\Debug\System.Security.Cryptography.Encoding.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Publisher\bin\Debug\System.Security.Cryptography.Primitives.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Publisher\bin\Debug\System.Security.Cryptography.X509Certificates.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Publisher\bin\Debug\Newtonsoft.Json.xml
+C:\Workspaces\Personal stuff\demo_mqtt\Publisher\obj\Debug\Publisher.csprojAssemblyReference.cache
+C:\Workspaces\Personal stuff\demo_mqtt\Publisher\obj\Debug\Publisher.csproj.CoreCompileInputs.cache
+C:\Workspaces\Personal stuff\demo_mqtt\Publisher\obj\Debug\Publisher.csproj.CopyComplete
+C:\Workspaces\Personal stuff\demo_mqtt\Publisher\obj\Debug\Publisher.exe
+C:\Workspaces\Personal stuff\demo_mqtt\Publisher\obj\Debug\Publisher.pdb

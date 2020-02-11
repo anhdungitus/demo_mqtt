@@ -27,3 +27,23 @@ C:\Users\nguyend6\Desktop\mqtt\demo_mqtt\Broker\bin\Debug\System.Security.Crypto
 C:\Users\nguyend6\Desktop\mqtt\demo_mqtt\Broker\bin\Debug\System.Security.Cryptography.Encoding.dll
 C:\Users\nguyend6\Desktop\mqtt\demo_mqtt\Broker\bin\Debug\System.Security.Cryptography.Primitives.dll
 C:\Users\nguyend6\Desktop\mqtt\demo_mqtt\Broker\bin\Debug\System.Security.Cryptography.X509Certificates.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Broker\bin\Debug\Broker.exe.config
+C:\Workspaces\Personal stuff\demo_mqtt\Broker\bin\Debug\Broker.exe
+C:\Workspaces\Personal stuff\demo_mqtt\Broker\bin\Debug\Broker.pdb
+C:\Workspaces\Personal stuff\demo_mqtt\Broker\bin\Debug\MQTTnet.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Broker\bin\Debug\Newtonsoft.Json.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Broker\bin\Debug\System.IO.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Broker\bin\Debug\System.Net.Security.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Broker\bin\Debug\System.Net.WebSockets.Client.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Broker\bin\Debug\System.Net.WebSockets.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Broker\bin\Debug\System.Runtime.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Broker\bin\Debug\System.Security.Cryptography.Algorithms.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Broker\bin\Debug\System.Security.Cryptography.Encoding.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Broker\bin\Debug\System.Security.Cryptography.Primitives.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Broker\bin\Debug\System.Security.Cryptography.X509Certificates.dll
+C:\Workspaces\Personal stuff\demo_mqtt\Broker\bin\Debug\Newtonsoft.Json.xml
+C:\Workspaces\Personal stuff\demo_mqtt\Broker\obj\Debug\Broker.csprojAssemblyReference.cache
+C:\Workspaces\Personal stuff\demo_mqtt\Broker\obj\Debug\Broker.csproj.CoreCompileInputs.cache
+C:\Workspaces\Personal stuff\demo_mqtt\Broker\obj\Debug\Broker.csproj.CopyComplete
+C:\Workspaces\Personal stuff\demo_mqtt\Broker\obj\Debug\Broker.exe
+C:\Workspaces\Personal stuff\demo_mqtt\Broker\obj\Debug\Broker.pdb
